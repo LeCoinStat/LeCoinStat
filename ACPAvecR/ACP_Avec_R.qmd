@@ -1,0 +1,46 @@
+---
+title: "ACP_EN_R"
+format: html
+editor: visual
+---
+
+## Les étapes pour construire une ACP
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Application de l'ACP en pratique
+
+## Base de données
+
+La base de données contient des athlète à une compétition de décathlon. La base contient 41 lignes et inlut inclut des résultats pour diverses épreuves telles que le 100m, le saut en longueur, le lancer du poids, etc. Chaque ligne détaille les performances d'un athlète dans chaque épreuve, son classement, le total des points, et le nom de la compétition.
+
+L'objectif de l'ACP sur cette base de données est double:
+
+-L'ACP permettra d'identifier les épreuves qui sont le plus fortement corrélées entre elles, de d**éterminer les épreuves les plus influentes pour le score total**, et de déceler des patterns ou des groupes d'épreuves qui ont tendance à aller de pair dans la détermination des performances athlétiques.
+
+-L'ACP aidera à **identifier des groupes d'athlètes avec des profils de compétences similaires,** de découvrir des athlètes qui se distinguent dans certaines épreuves, et de visualiser la dispersion des athlètes en fonction de leur polyvalence et de leurs forces et faiblesses spécifiques. Cela fournira des insights sur la manière dont les compétences et les performances individuelles se répartissent au sein de l'ensemble des participants.
+
+# Utilité pratique du projet
+
+1.  **Identification des Facteurs Clés de Réussite** : En analysant les corrélations entre différentes épreuves, l'ACP peut révéler quelles compétences et quelles épreuves sont les plus déterminantes pour réussir en décathlon. Cela peut aider les entraîneurs et les athlètes à cibler leurs entraînements sur les aspects les plus influents.
+
+2.  **Stratégies d'Entraînement et de Compétition** : En comprenant les forces et les faiblesses des athlètes individuels, les entraîneurs peuvent élaborer des stratégies d'entraînement personnalisées. Cela peut également aider à développer des stratégies de compétition, en se concentrant sur les épreuves où les athlètes sont les plus susceptibles de gagner des points.
+
+3.  **Sélection et Recrutement d'Athlètes** : Les équipes et les organisations sportives peuvent utiliser les résultats de l'ACP pour identifier des athlètes ayant des profils de compétences particuliers qui correspondent à leurs besoins ou à leur philosophie de formation.
+
+4.  **Engagement des Fans et des Médias** : Les résultats de l'analyse peuvent être utilisés pour créer des narrations intéressantes pour les fans et les médias, en mettant en lumière les subtilités des performances des athlètes et les dynamiques complexes du décathlon.
+
+# Etape 2: Importation et description des données
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
