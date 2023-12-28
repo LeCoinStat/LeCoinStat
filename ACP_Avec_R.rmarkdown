@@ -4,6 +4,7 @@ format: html
 editor: visual
 ---
 
+
 ## Les étapes pour construire une ACP
 
 ## Application de l'ACP en pratique
@@ -29,6 +30,7 @@ L'objectif de l'ACP sur cette base de données est double:
 4.  **Engagement des Fans et des Médias** : Les résultats de l'analyse peuvent être utilisés pour créer des narrations intéressantes pour les fans et les médias, en mettant en lumière les subtilités des performances des athlètes et les dynamiques complexes du décathlon.
 
 # Etape 1: Importation et description des données
+
 
 ```{r}
 # Définir l'URL du fichier
@@ -67,7 +69,9 @@ head(decathlon_data)
 summary(decathlon_data)
 ```
 
+
 ## Analyse des valeurs manquantes
+
 
 ```{r}
 # Fonction pour calculer la proportion de valeurs manquantes par variable
@@ -103,7 +107,9 @@ aggr(decathlon_data, col=c('navyblue','yellow'), numbers=TRUE, sortVars=TRUE,
 
 ```
 
+
 ## Description des variables quantitatives
+
 
 ```{r}
 # Installer les packages nécessaires si ce n'est pas déjà fait
@@ -158,7 +164,9 @@ creer_barplot_proportion <- function(data, column_name) {
 creer_barplot_proportion(decathlon_data, "Compétition")
 ```
 
+
 # Etape 2: Analyser les corrélations entre les variables quantitatives
+
 
 ```{r}
 # Installer les packages si nécessaire
@@ -191,7 +199,9 @@ corrplot(matrice_correlation, method = "color", type = "upper", order = "hclust"
    
 ```
 
+
 ### Etape 3: Centrer et réduire les données
+
 
 ```{r}
 # Centrer et réduire les données
@@ -199,7 +209,9 @@ donnees_centrees_reduites <- scale(donnees_quantitatives,center = TRUE,scale=TRU
 ?scale
 ```
 
+
 # Etape 4: Réalisation de l'ACP avec Factominer
+
 
 ```{r}
 # Installer les packages si nécessaire
@@ -218,7 +230,9 @@ resultat_acp <- PCA(donnees_centrees_reduites, graph = FALSE)
 print(resultat_acp)
 ```
 
+
 ## Choix du nombre d'axe factoriel
+
 
 ```{r}
 valeurspropres <- resultat_acp$eig
@@ -243,7 +257,9 @@ fviz_eig(resultat_acp, addlabels = TRUE)
 
 ```
 
+
 ## Représentation du cercle de corrélation
+
 
 ```{r}
 
@@ -321,7 +337,9 @@ fviz_pca_biplot(resultat_acp,
                 )
 ```
 
+
 # Ajout des variables supplémentaires
+
 
 ```{r}
 resultat_acp <- PCA(decathlon_data, 
@@ -356,6 +374,7 @@ res.desc <- dimdesc(resultat_acp, axes = c(4,5), proba = 0.05)
 res.desc
 ```
 
+
 # Quiz
 
 1.  **Quelle action réaliser en premier parmi les 3 actions suivantes pour mettre en place une ACP?**
@@ -373,3 +392,4 @@ res.desc
     -   B\) Les variables supplémentaires sont utilisées pour interpréter les composantes principales mais ne sont pas intégrées dans le calcul des axes principaux.
 
     -   C\) Les variables supplémentaires remplacent les variables initiales si elles expliquent une plus grande part de la variance.
+
