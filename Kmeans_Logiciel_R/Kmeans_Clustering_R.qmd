@@ -1,0 +1,555 @@
+---
+title: "Kmeans_Clustering_R"
+format: docx
+editor: visual
+---
+
+# Analyse de la base de données 'Live'
+
+La base de données 'Live' contient des informations collectées auprès de vendeurs sur Facebook en Thaïlande.
+
+Elle comprend différents types de statuts (photo, vidéo, etc.) ainsi que diverses métriques telles que les 'likes', 'shares', et 'comments'.
+
+Les détails précis des variables peuvent varier en fonction du fichier de données spécifique utilisé.
+
+La base de données contient les inforamtions suivantes:
+
+\- `status_id` : L'ID unique de chaque publication.
+
+\- `status_type` : Le type de publication (par exemple, photo, statut, lien, vidéo).
+
+\- `status_published` : La date et l'heure de la publication.
+
+\- `num_reactions` : Le nombre total de réactions à la publication (par exemple, likes, love, wow, haha, sad, angry).
+
+\- `num_comments` : Le nombre total de commentaires sur la publication.
+
+\- `num_shares` : Le nombre total de partages de la publication.
+
+\- `num_likes` : Le nombre total de "J'aime" pour la publication.
+
+\- `num_loves` : Le nombre total de "Love" réactions pour la publication.
+
+\- `num_wows` : Le nombre total de "Wow" réactions pour la publication.
+
+\- `num_hahas` : Le nombre total de "Haha" réactions pour la publication.
+
+\- `num_sads` : Le nombre total de "Sad" réactions pour la publication.
+
+\- `num_angrys` : Le nombre total de "Angry" réactions pour la publication.
+
+L'objectif de cette analyse est **de découvrir des modèles et des tendances dans les données qui peuvent nous aider à comprendre comment les utilisateurs de Facebook en Thaïlande** interagissent avec les publications des vendeurs en ligne.
+
+Ces informations peuvent être utilisées pour **optimiser la stratégie de contenu des vendeurs**, améliorer l'engagement des utilisateurs et, finalement, augmenter les ventes.
+
+# Etape 1: Importation des données et description des données
+
+```{r}
+chemin<-"/Users/natachanjongwayepnga/Documents/GitHub/LeCoinStat/Kmeans_Logiciel_R/data"# Remplacez par le chemin dans lequel se trouve votre base de données
+base_publication<-read.csv(paste0(chemin,"/Live.csv"))
+
+#Visualiser les premières lignes de la base de données 
+
+head(base_publication)
+```
+
+```{r}
+#Types des variables dans la base de données
+str(base_publication)
+```
+
+```{r}
+#install.packages("dplyr")
+# Assurez-vous que le package dplyr est chargé
+library(dplyr)
+
+# Suppression des colonnes inutiles
+base_publication<-base_publication %>% select(-c("Column1", "Column2", "Column3","Column4", "status_published"))
+
+str(base_publication)
+```
+
+```{r}
+#Résumé rapide de la base de données
+summary(base_publication)
+```
+
+## Analyse des données manquantes
+
+```{r}
+# Fonction pour calculer la proportion de valeurs manquantes par variable
+proportion_valeurs_manquantes <- function(data) {
+    # Calcul du nombre de valeurs manquantes par colonne
+  nb_valeurs_manquantes <- sapply(data, function(x) sum(is.na(x)))
+
+  # Calcul de la proportion de valeurs manquantes
+  proportion_manquantes <- nb_valeurs_manquantes / nrow(data)
+
+  # Création d'un dataframe pour le résultat
+  resultat <- data.frame(Nombre = nb_valeurs_manquantes, Proportion = proportion_manquantes)
+
+  return(resultat)
+}
+
+# Utilisation de la fonction avec votre base de données
+resultat <- proportion_valeurs_manquantes(base_publication)
+resultat
+```
+
+```{r}
+# Charger le package VIM
+if (!require(VIM)) install.packages("VIM")
+library(VIM)
+
+# Utilisation de la fonction aggr() pour visualiser les valeurs manquantes
+# base_publication : le dataframe contenant vos données
+# col : définit les couleurs utilisées dans le graphique (navyblue pour les valeurs existantes, yellow pour les manquantes)
+# numbers : si TRUE, affiche le pourcentage de valeurs manquantes pour chaque variable
+# sortVars : si TRUE, trie les variables par le taux de valeurs manquantes
+# labels : les étiquettes à utiliser pour chaque variable, ici on utilise les noms des colonnes de base_publication
+# cex.axis : taille du texte des étiquettes d'axe (réduite ici à 0.7 pour une meilleure lisibilité)
+# gap : espace entre les barres dans l'histogramme
+# ylab : étiquettes pour l'axe des y, ici définies comme un histogramme des données manquantes et leur motif
+
+aggr(base_publication, col=c('navyblue','yellow'), numbers=TRUE, sortVars=TRUE, 
+     labels=names(base_publication), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
+```
+
+## Analyse du type de statut
+
+```{r}
+# Chargement du package ggplot2 pour la visualisation
+library(ggplot2)
+
+# Création d'une table des fréquences pour la variable status_type
+
+type_statut_table <- table(base_publication$status_type)
+
+# Conversion de la table en dataframe pour la visualisation
+type_statut_df <- as.data.frame(type_statut_table)
+
+# Renommage des colonnes
+names(type_statut_df) <- c("status_type", "Count")
+
+# Ajout d'une colonne pour les proportions
+type_statut_df$Proportion <- type_statut_df$Count / sum(type_statut_df$Count)
+
+# Création du diagramme en barres
+ggplot(type_statut_df, aes(x = status_type, y = Count, fill = status_type)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste(round(Proportion * 100), "%")), vjust = -0.5) +
+  labs(title = "Répartition par Type de Statut", x = "Type de Statut", y = "Nombre") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Pastel1")
+
+#Afficher le nombre
+type_statut_table
+```
+
+## Analyse des variables quantitatives
+
+```{r}
+# Installer les packages nécessaires si ce n'est pas déjà fait
+if (!require(ggplot2)) install.packages("ggplot2")
+
+# Charger les packages
+library(ggplot2)
+# Identifier les colonnes quantitatives
+liste_variable_quanti <-colnames(base_publication)[-c(1,2)]
+
+# Créer un histogramme pour chaque variable quantitative
+for (var in liste_variable_quanti) {
+  # Vérifier si la variable est continue
+  if (is.numeric(base_publication[[var]])) {
+    print(ggplot(base_publication, aes(x = .data[[var]])) +
+            geom_histogram(bins = 30, fill = "blue", color = "black") +
+            theme_minimal() +
+            labs(title = paste("Histogramme de", var), x = var, y = "Fréquence"))
+  } else {
+    message(paste("La variable", var, "n'est pas quantitative et sera ignorée."))
+  }
+}
+
+
+
+```
+
+```{r}
+
+# Créer un boxplot pour chaque variable quantitative
+for (var in liste_variable_quanti) {
+  # Vérifier si la variable est continue
+  if (is.numeric(base_publication[[var]])) {
+    print(ggplot(base_publication, aes(x = factor(1), y = .data[[var]])) +
+            geom_boxplot(fill = "skyblue", color = "darkblue") +
+            theme_minimal() +
+            labs(title = paste("Boxplot de", var), x = "", y = var))
+  } else {
+    message(paste("La variable", var, "n'est pas quantitative et sera ignorée pour les boxplots."))
+  }
+}
+```
+
+\
+
+```{r}
+library(psych)
+describe(base_publication[,liste_variable_quanti])
+```
+
+# Etape 2: Analyse des relations entre les variables
+
+## Réaliser le pariplot entre les variables
+
+```{r}
+# Chargement des packages nécessaires
+if (!require(GGally)) install.packages("GGally")
+library(GGally)
+# Sélection des variables quantitatives
+base_anal <- base_publication[,-1]#Enlever l'identifiant de la base
+
+# Création du pairplot
+plot(base_anal)
+```
+
+## Heatmap de corrélation entre les variables quantitatives
+
+```{r}
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(reshape2)) install.packages("reshape2")  # Pour transformer la matrice de corrélation
+library(ggplot2)
+library(reshape2)
+base_quati <- base_publication[,-c(1,2)]  # Enlever les colonnes non quantitatives
+matrice_correlation <- cor(base_quati, use = "complete.obs")
+
+# Fondre la matrice de corrélation pour une utilisation avec ggplot2
+melted_cormat <- melt(matrice_correlation)
+
+
+ggplot(data = melted_cormat, aes(Var2, Var1, fill = value)) +
+ geom_tile(color = "white") +
+ geom_text(aes(label = round(value, 2)), vjust = 1, size = 3) +  # Ajout de geom_text avec une taille de police augmentée
+ scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+                      midpoint = 0, limit = c(-1,1), space = "Lab", 
+                      name="Corrélation de Pearson") +
+ theme_minimal() + 
+ theme(axis.text.x = element_text(angle = 45, vjust = 1, 
+                                  size = 12, hjust = 1),
+       axis.text.y = element_text(size = 12)) +
+ coord_fixed()
+
+```
+
+## Relation variable qualitative et une variable quantitative
+
+```{r}
+if (!require(ggplot2)) install.packages("ggplot2")
+
+# Charger les packages
+library(ggplot2)
+
+# Pour chaque variable quantitative, créer un boxplot par rapport à status_type
+for (col in liste_variable_quanti) {
+    # Créer le boxplot
+    p <- ggplot(base_publication, aes(x = status_type, y = .data[[col]], fill = status_type)) +
+        geom_boxplot(alpha = 0.7) +  # Supprimer la bordure noire
+        scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs vive
+        labs(title = paste("Boxplot de", col, "par status_type"), x = "Status Type", y = col) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Incliner le texte de l'axe X
+              plot.title = element_text(hjust = 0.5))  # Centrer le titre
+
+    # Afficher le boxplot
+    print(p)
+}
+```
+
+```{r}
+# Effectuer le test de Wilcoxon pour chaque variable quantitative par rapport à une variable qualitative
+
+resultats_tests <- list()
+
+for (col in liste_variable_quanti) {
+    # Exécution du test de Kruskal-Wallis
+    test <- kruskal.test(as.formula(paste(col, '~ status_type')), data = base_publication)
+    
+    # Stocker la statistique de test et la p-valeur
+    resultats_tests[[col]] <- c(statistic = test$statistic, p.value = test$p.value)
+}
+
+# Conversion de la liste des résultats en dataframe
+resultats_dataframe <- as.data.frame(t(sapply(resultats_tests, c)))
+
+# Nommer les colonnes et les lignes du dataframe
+colnames(resultats_dataframe) <- c("statistic", "p.value")
+rownames(resultats_dataframe) <- liste_variable_quanti
+
+resultats_dataframe
+
+```
+
+# Etape 3: Réaliser l'ACP
+
+```{r}
+if (!require(FactoMineR)) install.packages("FactoMineR")
+if (!require(factoextra)) install.packages("factoextra")
+
+library(FactoMineR)
+library(factoextra)
+
+# Sélection des variables quantitatives
+base_quanti <- base_publication[,-c(1,2)]  # Exclure les colonnes non quantitatives
+
+# Variable qualitative comme supplémentaire
+status_type <- base_publication$status_type
+
+```
+
+## Choisir le nombre d'axe factoriel
+
+```{r}
+# Normalisation (centrage et réduction) des variables quantitatives
+base_quanti_norm <- scale(base_quanti)
+acp <- PCA(base_quanti_norm, graph = FALSE)
+fviz_eig(acp)
+```
+
+## Interpréter les axes
+
+```{r}
+# Cercle de corrélation
+fviz_pca_var(acp, col.var = "contrib", repel = TRUE) # Colorer par contribution
+fviz_pca_var(acp, col.var = "cos2", repel = TRUE) # Colorer par contribution
+```
+
+# Mise en place des kmeans
+
+## Etape 4: Détermination du nombre de cluster
+
+```{r}
+if (!require(factoextra)) install.packages("factoextra")
+if (!require(cluster)) install.packages("cluster")
+
+library(factoextra)
+library(cluster)
+```
+
+### Méthode du coude
+
+L'idée de base derrière les méthodes de partitionnement de clusters, telles que le clustering k-means, est de définir des clusters afin de **minimiser** la **variation intra-cluster totale.** Cette variation est connue sous le nom de variation totale intra-cluster ou somme totale des carrés intra-cluster (WSS). La formule pour minimiser la WSS est la suivante :
+
+$$
+\text{minimiser} \left( \sum_{k=1}^K W(C_k) \right)
+$$
+
+Dans cette formule, $C_k$ représente le k-ième cluster et \$W(C_k) \$est la variation intra-cluster. La WSS quantifie la densité du regroupement et l'objectif est de la réduire au minimum possible.
+
+Pour déterminer le nombre optimal de clusters, on peut utiliser l'algorithme suivant :
+
+1.  Appliquer l'algorithme de clustering pour différentes valeurs de k, par exemple, en faisant varier k de 1 à 10 clusters.
+
+2.  Calculer la WSS pour chaque valeur de k.
+
+3.  Tracer la courbe de WSS en fonction du nombre de clusters k.
+
+4.  Identifier l'emplacement d'un coude dans le graphique, qui est généralement considéré comme un indicateur du nombre approprié de clusters.
+
+<https://uc-r.github.io/kmeans_clustering#optimal>
+
+```{r}
+# Détermination du nombre optimal de clusters avec la méthode du coude
+fviz_nbclust(base_quanti_norm, kmeans, method = "wss") + 
+    geom_vline(xintercept = 4, linetype = 2) +  # Ajuster le xintercept selon le résultat
+    labs(title = "Détermination du Nombre Optimal de Clusters",
+         x = "Nombre de Clusters",
+         y = "Somme des Carrés Intra-Cluster (WSS)") +
+    theme_minimal()
+
+```
+
+### Méthode de silhouette
+
+L'approche de la silhouette détermine à quel point chaque objet est bien intégré dans son cluster. Une largeur moyenne de silhouette élevée indique un bon clustering. La méthode de la silhouette moyenne calcule la silhouette moyenne des observations pour différentes valeurs de k. Le nombre optimal de clusters k est celui qui maximise la silhouette moyenne sur une plage de valeurs possibles pour k.
+
+<https://uc-r.github.io/kmeans_clustering>
+
+```{r}
+
+
+if (!require(purrr)) install.packages("purrr")
+library(purrr)
+
+# function to compute average silhouette for k clusters
+avg_sil <- function(k) {
+  km.res <- kmeans(base_quanti_norm, centers = k, nstart = 25)
+  ss <- silhouette(km.res$cluster, dist(base_quanti_norm))
+  mean(ss[, 3])
+}
+
+# Compute and plot wss for k = 2 to k = 15
+k.values <- 2:15
+
+# extract avg silhouette for 2-15 clusters
+avg_sil_values <- map_dbl(k.values, avg_sil)
+
+plot(k.values, avg_sil_values,
+     type = "b", pch = 19, frame = FALSE, 
+     xlab = "Nombre de clusters K",
+     ylab = "Silhouettes Moyennes")
+
+
+fviz_nbclust(base_quanti_norm, kmeans, method = "silhouette") +
+    labs(title = "Détermination du Nombre Optimal de Clusters avec la Méthode de la Silhouette",
+         x = "Nombre de Clusters",
+         y = "Largeur Moyenne de la Silhouette") +
+    theme_minimal()
+
+```
+
+```{r}
+set.seed(123)  # Pour la reproductibilité
+kmeans_result <- kmeans(base_quanti_norm, centers = 4, nstart = 25)
+```
+
+```{r}
+fviz_cluster(kmeans_result, data = base_quanti_norm)
+```
+
+```{r}
+set.seed(123)  # Pour la reproductibilité
+k2 <- kmeans(base_quanti_norm, centers = 2, nstart = 25)
+k3 <- kmeans(base_quanti_norm, centers = 3, nstart = 25)
+k5 <- kmeans(base_quanti_norm, centers = 5, nstart = 25)
+
+# plots to compare
+p1 <- fviz_cluster(k2, geom = "point", data = base_quanti_norm) + ggtitle("k = 2")
+p2 <- fviz_cluster(k3, geom = "point",  data = base_quanti_norm) + ggtitle("k = 3")
+p3 <- fviz_cluster(k5, geom = "point",  data = base_quanti_norm) + ggtitle("k = 5")
+p4 <- fviz_cluster(kmeans_result, geom = "point",  data = base_quanti_norm) + ggtitle("k = 4")
+
+library(gridExtra)
+grid.arrange(p1, p2, p3,p4, nrow = 2)
+
+```
+
+# Etape 5: Interprétation des résultats
+
+Source code: <https://www.datanovia.com/en/blog/beautiful-radar-chart-in-r-using-fmsb-and-ggplot-packages/>
+
+```{r}
+# Ajouter la colonne de cluster à base_publication
+base_publication$cluster <- factor(kmeans_result$cluster)
+```
+
+```{r}
+
+# Pour chaque variable quantitative, créer un boxplot par rapport à cluster
+for (col in liste_variable_quanti) {
+  p <- ggplot(base_publication, aes(x = cluster, y = .data[[col]], fill = cluster)) +
+    geom_boxplot() +
+    scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs
+    labs(title = paste("Boxplot de", col, "par cluster"), x = "Cluster", y = col) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Incliner le texte de l'axe X
+          plot.title = element_text(hjust = 0.5))  # Centrer le titre
+
+  # Afficher le boxplot
+  print(p)
+}
+
+```
+
+```{r}
+ggplot(base_publication, aes(x = factor(cluster), fill = status_type)) +
+    geom_bar(position = "dodge") +
+    scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs
+    labs(title = "Répartition des types de statuts par cluster",
+         x = "Cluster",
+         y = "Nombre de statuts") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Incliner le texte de l'axe X
+
+```
+
+```{r}
+library(dplyr)
+# If you haven't installed tidyverse yet, you can uncomment the line below
+# install.packages("tidyverse")
+library(tidyverse)
+
+# Calculating the proportions within each cluster
+base_groupe <- base_publication %>%
+  group_by(cluster, status_type) %>%
+  summarise(count = n()) %>%
+  group_by(cluster) %>%
+  mutate(freq = count / sum(count)) %>%
+  ungroup()
+
+```
+
+```{r}
+ggplot(base_groupe, aes(x = factor(cluster), y = freq, fill = status_type)) +
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label = scales::percent(freq, accuracy = 1)), 
+            position = position_fill(vjust = 0.5), 
+            size = 3, 
+            color = "black") +
+  scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs
+  labs(title = "Répartition proportionnelle des types de statuts par cluster",
+       x = "Cluster",
+       y = "Proportion (%)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Incliner le texte de l'axe X
+
+
+```
+
+## Interprétation avec 3 clusters
+
+```{r}
+base_publication$cluster3 <- factor(k3$cluster)
+```
+
+```{r}
+# Pour chaque variable quantitative, créer un boxplot par rapport à cluster
+for (col in liste_variable_quanti) {
+  p <- ggplot(base_publication, aes(x = cluster3, y = .data[[col]], fill = cluster3)) +
+    geom_boxplot() +
+    scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs
+    labs(title = paste("Boxplot de", col, "par cluster3"), x = "Cluster", y = col) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Incliner le texte de l'axe X
+          plot.title = element_text(hjust = 0.5))  # Centrer le titre
+
+  # Afficher le boxplot
+  print(p)
+}
+```
+
+```{r}
+library(dplyr)
+#install.packages("tidyverse")
+library(tidyverse)
+# Calculer les proportions
+base_groupe <- base_publication %>%
+  group_by(cluster3, status_type) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  mutate(freq = count / sum(count))
+base_groupe
+```
+
+```{r}
+ggplot(base_groupe, aes(x = cluster3, y = freq, fill = status_type)) +
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label = scales::percent(freq, accuracy = 1)), 
+            position = position_fill(vjust = 0.5), 
+            size = 3, 
+            color = "black") +
+  scale_fill_brewer(palette = "Set1") +  # Utiliser une palette de couleurs
+  labs(title = "Répartition proportionnelle des types de statuts par cluster",
+       x = "Cluster",
+       y = "Proportion (%)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Incliner le texte de l'axe X
+```
