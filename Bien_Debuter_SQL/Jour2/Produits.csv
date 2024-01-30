@@ -1,0 +1,101 @@
+ProduitID;NomProduit;Description;PrixUnitaire;FournisseurID
+1;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;699;4
+2;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;129;51
+3;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;85;93
+4;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;299;8
+5;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;999;58
+6;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;299;28
+7;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;85;72
+8;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;799;90
+9;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;59;64
+10;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;699;47
+11;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;999;39
+12;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;799;4
+13;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;59;53
+14;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;799;82
+15;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;129;8
+16;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;699;50
+17;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;399;20
+18;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;699;34
+19;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;59;13
+20;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;699;65
+21;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;85;34
+22;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;129;93
+23;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;699;18
+24;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;999;34
+25;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;699;35
+26;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;85;52
+27;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;129;91
+28;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;129;84
+29;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;399;80
+30;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;699;4
+31;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;999;2
+32;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;299;1
+33;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;399;49
+34;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;59;92
+35;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;799;47
+36;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;85;15
+37;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;85;88
+38;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;799;22
+39;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;299;35
+40;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;59;95
+41;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;299;13
+42;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;59;13
+43;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;999;91
+44;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;399;40
+45;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;59;94
+46;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;699;86
+47;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;299;14
+48;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;699;24
+49;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;799;67
+50;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;799;40
+51;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;699;67
+52;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;799;91
+53;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;699;92
+54;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;129;89
+55;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;699;47
+56;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;399;78
+57;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;699;73
+58;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;399;79
+59;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;85;97
+60;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;699;89
+61;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;59;66
+62;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;299;76
+63;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;399;33
+64;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;699;67
+65;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;999;8
+66;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;129;24
+67;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;299;32
+68;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;699;74
+69;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;129;10
+70;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;799;98
+71;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;85;90
+72;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;399;35
+73;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;799;12
+74;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;399;80
+75;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;59;17
+76;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;299;74
+77;KitchenAid Mixer;Stand mixer with 10-speed settings, a tilt-head design, and comes with multiple attachments.;999;70
+78;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;299;69
+79;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;699;42
+80;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;299;100
+81;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;699;56
+82;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;129;40
+83;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;699;84
+84;Ralph Lauren Polo Shirt;Signature cotton mesh polo shirt with a ribbed collar, two-button placket, and embroidered logo.;699;84
+85;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;129;58
+86;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;699;84
+87;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;999;15
+88;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;999;94
+89;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;299;86
+90;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;129;84
+91;Samsung Galaxy S21;Featuring a 6.2-inch dynamic AMOLED display, triple rear cameras, and 8K video recording.;999;44
+92;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;799;56
+93;Nike Air Max;Running shoes with Max Air cushioning, mesh uppers, and durable rubber outsole.;699;2
+94;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;85;80
+95;Levi's Jeans;Classic denim jeans with a straight leg fit, five-pocket styling, and a button fly.;129;61
+96;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;699;42
+97;iPhone 12;A 6.1-inch smartphone with A14 Bionic chip, dual-camera system, and 5G speed.;999;86
+98;Dell XPS 13;13.4-inch FHD+ laptop with 10th Gen Intel Core processors and a stunning HDR 400 display.;799;33
+99;Dyson Vacuum;Cordless vacuum cleaner with strong suction power, multiple attachments, and up to 60 minutes of run time.;999;84
+100;Samsung TV 55';55-inch 4K UHD Smart TV with HDR, Crystal Display, and built-in voice assistants.;299;16
