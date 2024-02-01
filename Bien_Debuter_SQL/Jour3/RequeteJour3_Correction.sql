@@ -287,7 +287,7 @@ ORDER BY MntTot DESC;
 -- Exemple Pratique : Quelle est la moyenne des ventes par année et par employé ?
 SELECT YEAR(DateVente) as Annee, EmployeID, AVG(MontantTotal) as MoyenneCA
 FROM Ventes
-GROUP Annee, EmployeID;
+GROUP BY Annee, EmployeID;
 -- Utilisation de Fonctions d'Agrégation
 -- En combinaison avec la clause `GROUP BY`, vous pouvez utiliser des fonctions d'agrégation telles que SUM(), COUNT(), AVG(), MIN(), MAX(), etc., pour effectuer des calculs sur les groupes de données résultants. Cela vous permet d'obtenir des statistiques résumées par groupe.
 
@@ -299,8 +299,23 @@ Fonction HAVING
 
 -- Exemple: Donner la liste des employés dont la moyenne des ventes est supérieure à 1000 euros.
 
--- Exercice: Donner la liste des 5 employés ayant la somme des ventes la plus élevée.
+SELECT YEAR(DateVente) as Annee, EmployeID, AVG(MontantTotal) as MoyenneCA
+FROM Ventes
+GROUP BY Annee, EmployeID
+HAVING MoyenneCA > 1000;
 
+SELECT YEAR(DateVente) as Annee, EmployeID, AVG(MontantTotal) as MoyenneCA
+FROM Ventes
+WHERE MontantTotal > 1000
+GROUP BY Annee, EmployeID
+;
+
+-- Exercice: Donner la liste des 5 employés ayant la somme des ventes la plus élevée.
+SELECT EmployeID, SUM(MontantTotal) AS CA_Total
+FROM Ventes
+GROUP BY EmployeID
+ORDER BY CA_Total
+LIMIT 5;
 
 
 /*==================================================================================
