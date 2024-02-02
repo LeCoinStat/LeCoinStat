@@ -5,7 +5,7 @@ WHERE Nom LIKE "%a%" AND  Nom NOT LIKE "%a%a%";
 
 -- Contient deux occurrences de la lettre A
 
-SELECT *
+SELECT count(*)
 FROM Clients
 WHERE  Nom  LIKE "%A%A%";
 
@@ -25,12 +25,12 @@ WHERE nom_colonne REGEXP 'pattern';
 ======================================================*/
 
 -- Liste des produits qui contiennent "TV" (deux possibilités avec LIKE)
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit LIKE "%TV%";
 
 -- Avec REGEXP
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit REGEXP "TV";
 
@@ -39,13 +39,13 @@ Pour indiquer le début d'une chaîne de caractères, utilisez le caractère "^"
 ======================================================*/
 
 -- Liste des produits dont le nom commence par la lettre "D"
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit LIKE "D%";
 
 
 -- Avec une expression régulière
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit REGEXP "^D";
 
@@ -54,12 +54,12 @@ Pour indiquer la fin d'une chaîne de caractères, utilisez le caractère "$" à
 ======================================================*/
 
 -- Liste des produits qui se terminent par "M"
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit LIKE "%M";
 
 -- Avec une expression régulière
-SELECT *
+SELECT count(*)
 FROM Produits
 WHERE NomProduit REGEXP "M$";
 
@@ -68,12 +68,12 @@ Rechercher plusieurs patterns dans la chaîne de caractères en utilisant le sym
 ======================================================*/
 
 -- Liste des clients dont le numéro contient "05" ou "04"
-SELECT *
+SELECT count(*)
 FROM Clients
 WHERE NumeroTelephone LIKE "%05%" OR NumeroTelephone LIKE "%04%" ;
 
 -- Avec REGEXP
-SELECT *
+SELECT count(*)
 FROM Clients
 WHERE NumeroTelephone REGEXP "05|04" ;
 
@@ -107,7 +107,7 @@ WHERE nom_colonne REGEXP 'pattern';
 -- Exemple: Sélectionner les clients dont le nom contient 'R' suivi de n'importe quel caractère et ensuite 'a'
 
 -- Avec LIKE (underscore)
-SELECT *
+SELECT count(*)
 FROM Clients
 WHERE Nom LIKE "%R_a%";
 
@@ -317,24 +317,6 @@ GROUP BY EmployeID
 ORDER BY CA_Total
 LIMIT 5;
 
-
-/*==================================================================================
-               Maîtriser les Jointures en SQL
-==================================================================================*/
-
-/*======================================================
-Introduction aux Jointures en SQL
-======================================================*/
-
--- Les jointures en SQL sont utilisées pour combiner des données de deux ou plusieurs tables en fonction d'une relation entre les colonnes de ces tables. Elles permettent de récupérer des informations provenant de plusieurs tables dans une seule requête.
-
-/*======================================================
-Jointure Interne (INNER JOIN) avec USING
-======================================================*/
-
--- La jointure interne combine les lignes de deux tables en utilisant une condition de correspondance spécifiée, et seules les lignes qui satisfont cette condition sont incluses dans le résultat. La clause USING permet de spécifier la colonne de correspondance commune.
-
--- Exemple :Pour chaque vente donner le nom, le prénom et l'adresse de l'employé ayant réalisé la vent
 
 
 
