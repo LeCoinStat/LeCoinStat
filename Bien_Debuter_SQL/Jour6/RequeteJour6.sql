@@ -21,27 +21,190 @@ Explication:
 
 */
 
+/* La somme des quantités vendues par produit*/
+SELECT ProduitID, SUM(QuantiteVendue) as nbVente
+FROM Ventes
+GROUP BY ProduitID
+ORDER BY nbVente DESC;
+
 /* Donner le classement des produits en fonction de la quantité vendue QuantiteVendue(vente) RANK()*/
 
+SELECT ProduitID, 
+	   SUM(QuantiteVendue) as nbVente,
+       RANK() 
+       OVER(ORDER BY SUM(QuantiteVendue)  DESC)  AS classement
+FROM Ventes
+GROUP BY ProduitID;
+
+SELECT ProduitID, 
+	   SUM(QuantiteVendue) as nbVente,
+       DENSE_RANK() 
+       OVER(ORDER BY SUM(QuantiteVendue) DESC)  AS classement
+FROM Ventes
+GROUP BY ProduitID;
+
+
 /* Ajouter le classement des employés qui on réalisé le plus grand chiffre d'affaire*/
+
+SELECT EmployeID, SUM(MontantTotal) as MntTotal,
+		DENSE_RANK() 
+		OVER(ORDER BY SUM(MontantTotal)  DESC) As Classement
+FROM Ventes
+GROUP BY EmployeID;
 
 
 /* Donner le Top 3 des meilleurs vendeur en terme de chiffre d'affaire par année (DENSE_RANK) POur les exaequo sans saut: Sous requête */
 
+/* CA par année et par employé*/
+SELECT EmployeID, YEAR(dateVente) AS Annee, SUM(MontantTotal) AS CA
+FROM Ventes
+GROUP BY EmployeID, Annee
+ORDER BY CA DESC;
 
 
-/* Donner le top 3 des meilleurs clients en terme de chiffre d'affaire par trimestre (Quater)*/
+SELECT EmployeID, YEAR(dateVente) AS Annee, SUM(MontantTotal) AS CA, 
+	   DENSE_RANK()
+	  OVER (PARTITION BY YEAR(dateVente) 
+      ORDER BY SUM(MontantTotal) DESC) As Classement
+FROM Ventes
+GROUP BY EmployeID, Annee;
+
+
+SELECT temp.EmployeID, temp.Annee, temp.CA, temp.Classement
+FROM
+		(SELECT EmployeID, YEAR(dateVente) AS Annee, SUM(MontantTotal) AS CA, 
+			   DENSE_RANK()
+			  OVER (PARTITION BY YEAR(dateVente) 
+			  ORDER BY SUM(MontantTotal) DESC) As Classement
+		FROM Ventes
+		GROUP BY EmployeID, Annee) AS temp
+        
+WHERE Classement BETWEEN 1 AND 3;
+
+
+SELECT Nom, Prenom, temp.EmployeID, temp.Annee, temp.CA, temp.Classement
+FROM
+		(SELECT EmployeID, YEAR(dateVente) AS Annee, SUM(MontantTotal) AS CA, 
+			   DENSE_RANK()
+			  OVER (PARTITION BY YEAR(dateVente) 
+			  ORDER BY SUM(MontantTotal) DESC) As Classement
+		FROM Ventes
+		GROUP BY EmployeID, Annee) AS temp JOIN Employes USING(EmployeID)
+        
+WHERE Classement BETWEEN 1 AND 3;
+
+
+
+
+
+
+CREATE VIEW classement AS
+SELECT EmployeID, YEAR(dateVente) AS Annee, SUM(MontantTotal) AS CA, 
+			   DENSE_RANK()
+			  OVER (PARTITION BY YEAR(dateVente) 
+			  ORDER BY SUM(MontantTotal) DESC) As Classement
+		FROM Ventes
+		GROUP BY EmployeID, Annee;
+
+SELECT EmployeID, Annee, CA, Classement
+FROM classement
+WHERE Classement BETWEEN 1 AND 3;
+
+
+/* Donner le top 3 des meilleurs clients en terme de chiffre d'affaire par trimestre (Quater) pour chaque année*/
+
+/*CA par client et par trimestre*/
+SELECT ClientID, YEAR(DateVente) AS Annee, QUARTER(DateVente) as Trimestre, AVG(MontantTotal) AS CA
+FROM Ventes
+GROUP BY ClientID, YEAR(DateVente), QUARTER(DateVente);
+
+SELECT ClientID, 
+	   YEAR(DateVente) AS Annee, 
+	   QUARTER(DateVente) as Trimestre, 
+	   AVG(MontantTotal) AS CA,
+	   RANK()
+       OVER(PARTITION BY YEAR(DateVente), QUARTER(DateVente) ORDER BY AVG(MontantTotal)) AS Classement
+FROM Ventes
+GROUP BY ClientID, YEAR(DateVente), QUARTER(DateVente);
+
+
+SELECT ClientID, Annee, Trimestre, CA, Classement
+FROM 
+		(SELECT ClientID, 
+			   YEAR(DateVente) AS Annee, 
+			   QUARTER(DateVente) as Trimestre, 
+			   AVG(MontantTotal) AS CA,
+			   RANK()
+			   OVER(PARTITION BY YEAR(DateVente), QUARTER(DateVente) ORDER BY AVG(MontantTotal)) AS Classement
+		FROM Ventes
+		GROUP BY ClientID, YEAR(DateVente), QUARTER(DateVente)) AS temp
+        
+WHERE Classement BETWEEN 1 AND 3; 
+
+
 
 
 /* Utilisation de LAG: LAG(value_expression [, offset [, default]]) OVER ([partition_by_clause] order_by_clause)*/
 
+
 /* Donner la différence du chiffre d'affaire entre t et t-1*/
+SELECT YEAR(DateVente) as Annee, SUM(MontantTotal) as CA
+FROM Ventes
+GROUP BY Annee;
+
+SELECT YEAR(DateVente) AS Annee, 
+		SUM(MontantTotal) AS CA,
+        SUM(MontantTotal) - LAG(SUM(MontantTotal),1,0)
+        OVER(ORDER BY YEAR(DateVente)) AS Diff
+FROM Ventes
+GROUP BY Annee;
 
 /* Determiner le taux de croissance*/
 
-/* Quelle est le montant total des ventes par trimestres pour chaque année et comment les ventes évoluent d'un trimestre à l'autre*/
+SELECT YEAR(DateVente) AS Annee, 
+		SUM(MontantTotal) AS CA,
+        (SUM(MontantTotal) - LAG(SUM(MontantTotal),1,0)
+        OVER(ORDER BY YEAR(DateVente)) ) 
+        / 
+        LAG(SUM(MontantTotal),1, 0) 
+        OVER(ORDER BY YEAR(DateVente)) AS Txcroissance
+FROM Ventes
+GROUP BY Annee;
+
+/* Ajouter le montant total de l'année n-1*/
+SELECT YEAR(DateVente) as Annee, 
+		SUM(MontantTotal) AS CA,
+		LAG(SUM(MontantTotal),1,0) 
+        OVER(ORDER BY YEAR(DateVente)) as CAprecedent
+FROM Ventes
+GROUP BY Annee;
 
 
+
+SELECT YEAR(DateVente) AS ANNEE, 
+	   MAX(MontantTotal)
+       OVER(PARTITION BY YEAR(DateVente) ORDER BY SUM(MontantTotal) ) AS Maximum
+FROM Ventes
+;
+
+
+/* Quelle est le montant total des ventes par trimestres pour chaque année 
+-- et comment les ventes évoluent d'un trimestre à l'autre*/
+SELECT YEAR(DateVente) AS Annee, 
+	   QUARTER(DateVente) AS Trimestre, 
+	   SUM(MontantTotal) AS CA
+FROM Ventes
+GROUP BY YEAR(DateVente), QUARTER(DateVente);
+
+
+
+SELECT YEAR(DateVente) AS Annee, 
+	   QUARTER(DateVente) AS Trimestre, 
+	   SUM(MontantTotal) AS CA,
+       SUM(MontantTotal) - LAG(SUM(MontantTotal), 1, 0)
+       OVER(ORDER BY YEAR(DateVente), QUARTER(DateVente)) as Evolution
+FROM Ventes
+GROUP BY YEAR(DateVente), QUARTER(DateVente);
 
 /*==================================================================================
            Fonctions ensemblistes
