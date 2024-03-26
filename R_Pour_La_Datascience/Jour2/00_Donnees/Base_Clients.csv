@@ -1,101 +1,101 @@
-CustomerID,Name,AgeGroup,EducationLevel,CustomerCategory
-1,Emma,18-25,High School,VIP
-2,Liam,36-45,Master,VIP
-3,Olivia,18-25,Master,VIP
-4,Noah,46-55,Bachelor,VIP
-5,Ava,56+,PhD,Premium
-6,Ethan,46-55,Master,Premium
-7,Isabella,56+,High School,Regular
-8,Mason,36-45,Bachelor,Regular
-9,Sophia,56+,Master,Regular
-10,Logan,56+,Bachelor,Regular
-11,Mia,26-35,High School,VIP
-12,Lucas,36-45,PhD,Premium
-13,Amelia,36-45,Master,Premium
-14,Jackson,36-45,High School,Regular
-15,Charlotte,56+,PhD,Regular
-16,Aiden,46-55,PhD,VIP
-17,Harper,36-45,Bachelor,VIP
-18,Elijah,56+,High School,Regular
-19,Evelyn,26-35,PhD,Premium
-20,James,46-55,Master,Premium
-21,Abigail,26-35,Master,Premium
-22,Benjamin,46-55,Bachelor,Regular
-23,Emily,56+,PhD,Premium
-24,Sebastian,18-25,High School,VIP
-25,Elizabeth,46-55,Master,VIP
-26,Carter,26-35,PhD,Regular
-27,Mila,56+,PhD,VIP
-28,Alexander,46-55,Bachelor,Regular
-29,Ella,18-25,Master,Premium
-30,Michael,18-25,Master,Premium
-31,Avery,36-45,High School,Premium
-32,Jacob,36-45,Master,VIP
-33,Sofia,26-35,High School,Regular
-34,Daniel,46-55,Master,Premium
-35,Camila,46-55,Bachelor,Regular
-36,Henry,36-45,Master,Premium
-37,Aria,46-55,High School,VIP
-38,Matthew,46-55,High School,VIP
-39,Scarlett,18-25,Bachelor,Regular
-40,Wyatt,36-45,Master,VIP
-41,Victoria,56+,Master,VIP
-42,Luke,36-45,Bachelor,Regular
-43,Madison,56+,Master,Premium
-44,Asher,18-25,Master,VIP
-45,Luna,26-35,High School,Regular
-46,Jack,46-55,Master,VIP
-47,Grace,18-25,Master,VIP
-48,Julian,46-55,Bachelor,VIP
-49,Chloe,26-35,Bachelor,VIP
-50,Levi,26-35,PhD,Regular
-51,Penelope,18-25,High School,Regular
-52,Owen,26-35,Master,Regular
-53,Layla,56+,Master,VIP
-54,Gabriel,26-35,PhD,VIP
-55,Riley,46-55,Master,VIP
-56,Isaac,46-55,High School,Regular
-57,Zoey,46-55,PhD,VIP
-58,Grayson,46-55,High School,Premium
-59,Nora,56+,PhD,VIP
-60,Lucas,36-45,PhD,Premium
-61,Lily,18-25,Bachelor,VIP
-62,Ezra,46-55,High School,Regular
-63,Eleanor,26-35,Master,VIP
-64,Theodore,46-55,Master,Premium
-65,Hannah,26-35,High School,Premium
-66,Samuel,26-35,Master,VIP
-67,Lillian,46-55,Master,Premium
-68,Joseph,56+,High School,Premium
-69,Addison,26-35,PhD,Regular
-70,Lincoln,26-35,High School,VIP
-71,Aubrey,46-55,PhD,VIP
-72,Hunter,26-35,Master,VIP
-73,Ellie,26-35,Master,Premium
-74,Joshua,46-55,Master,VIP
-75,Stella,46-55,Bachelor,VIP
-76,Charles,18-25,PhD,Regular
-77,Natalie,56+,Bachelor,Regular
-78,Caleb,56+,Bachelor,Regular
-79,Zoe,26-35,High School,Premium
-80,Isaiah,56+,Bachelor,VIP
-81,Leah,26-35,High School,Regular
-82,Ryan,18-25,High School,Regular
-83,Hazel,46-55,Bachelor,Regular
-84,Nathan,46-55,PhD,VIP
-85,Violet,46-55,PhD,VIP
-86,Adrian,56+,PhD,VIP
-87,Aurora,18-25,PhD,Premium
-88,Christian,56+,PhD,Premium
-89,Savannah,56+,Bachelor,Regular
-90,Maverick,18-25,Bachelor,VIP
-91,Audrey,18-25,Master,Regular
-92,Colton,18-25,PhD,VIP
-93,Brooklyn,18-25,Bachelor,VIP
-94,Cooper,46-55,Master,VIP
-95,Bella,36-45,PhD,Premium
-96,Xavier,36-45,High School,Premium
-97,Claire,18-25,Master,VIP
-98,Parker,36-45,Bachelor,Regular
-99,Skylar,36-45,High School,VIP
-100,Liam,18-25,High School,VIP
+﻿CustomerID;Name;AgeGroup;EducationLevel;CustomerCategory
+1;Emma;18-25;High School;VIP
+2;Liam;36-45;Master;VIP
+3;Olivia;18-25;Master;VIP
+4;Noah;46-55;Bachelor;VIP
+5;Ava;56+;PhD;Premium
+6;Ethan;46-55;Master;Premium
+7;Isabella;56+;High School;Regular
+8;Mason;36-45;Bachelor;Regular
+9;Sophia;56+;Master;Regular
+10;Logan;56+;Bachelor;
+11;Mia;26-35;High School;VIP
+12;Lucas;36-45;PhD;Premium
+13;Amelia;36-45;Master;Premium
+14;Jackson;36-45;High School;Regular
+15;Charlotte;56+;PhD;Regular
+16;Aiden;46-55;PhD;VIP
+17;Harper;36-45;Bachelor;VIP
+18;Elijah;56+;High School;Regular
+19;Evelyn;26-35;PhD;Premium
+20;James;46-55;Master;Premium
+21;Abigail;26-35;Master;Premium
+22;Benjamin;46-55;Bachelor;Regular
+23;Emily;56+;PhD;Premium
+24;Sebastian;18-25;High School;VIP
+25;Elizabeth;46-55;Master;
+26;Carter;26-35;PhD;Regular
+27;Mila;56+;;VIP
+28;Alexander;46-55;Bachelor;Regular
+29;Ella;18-25;Master;Premium
+30;Michael;18-25;Master;Premium
+31;Avery;36-45;High School;Premium
+32;Jacob;;Master;VIP
+33;Sofia;26-35;High School;Regular
+34;Daniel;46-55;Master;
+35;Camila;46-55;Bachelor;Regular
+36;Henry;36-45;Master;Premium
+37;Aria;46-55;High School;VIP
+38;Matthew;46-55;High School;VIP
+39;Scarlett;18-25;Bachelor;Regular
+40;Wyatt;36-45;Master;VIP
+41;Victoria;;Master;VIP
+42;Luke;36-45;Bachelor;Regular
+43;Madison;56+;Master;Premium
+44;Asher;18-25;Master;VIP
+45;Luna;26-35;High School;Regular
+46;Jack;46-55;Master;VIP
+47;Grace;18-25;Master;VIP
+48;Julian;46-55;Bachelor;VIP
+49;Chloe;26-35;Bachelor;VIP
+50;Levi;26-35;PhD;Regular
+51;Penelope;18-25;High School;Regular
+52;Owen;26-35;Master;Regular
+53;Layla;56+;Master;VIP
+54;Gabriel;26-35;PhD;VIP
+55;Riley;46-55;Master;VIP
+56;Isaac;46-55;High School;Regular
+57;Zoey;46-55;PhD;VIP
+58;Grayson;46-55;High School;Premium
+59;Nora;56+;PhD;VIP
+60;Lucas;36-45;PhD;Premium
+61;Lily;18-25;Bachelor;VIP
+62;Ezra;46-55;High School;Regular
+63;Eleanor;26-35;Master;VIP
+64;Theodore;46-55;Master;Premium
+65;Hannah;26-35;High School;Premium
+66;Samuel;26-35;Master;VIP
+67;Lillian;46-55;Master;Premium
+68;Joseph;56+;High School;Premium
+69;Addison;26-35;PhD;Regular
+70;Lincoln;26-35;High School;VIP
+71;Aubrey;46-55;PhD;VIP
+72;Hunter;26-35;Master;VIP
+73;Ellie;26-35;Master;Premium
+74;Joshua;46-55;Master;VIP
+75;Stella;46-55;Bachelor;VIP
+76;Charles;18-25;PhD;Regular
+77;Natalie;56+;Bachelor;Regular
+78;Caleb;56+;Bachelor;Regular
+79;Zoe;26-35;High School;Premium
+80;Isaiah;56+;Bachelor;VIP
+81;Leah;26-35;High School;Regular
+82;Ryan;18-25;High School;Regular
+83;Hazel;46-55;Bachelor;Regular
+84;Nathan;46-55;PhD;VIP
+85;Violet;46-55;PhD;VIP
+86;Adrian;56+;PhD;VIP
+87;Aurora;18-25;PhD;Premium
+88;Christian;56+;PhD;Premium
+89;Savannah;56+;Bachelor;Regular
+90;Maverick;18-25;Bachelor;VIP
+91;Audrey;18-25;Master;Regular
+92;Colton;18-25;PhD;VIP
+93;Brooklyn;18-25;Bachelor;VIP
+94;Cooper;46-55;Master;VIP
+95;Bella;36-45;PhD;Premium
+96;Xavier;36-45;High School;Premium
+97;Claire;18-25;Master;VIP
+98;Parker;36-45;Bachelor;Regular
+99;Skylar;36-45;High School;VIP
+100;Liam;18-25;High School;VIP
