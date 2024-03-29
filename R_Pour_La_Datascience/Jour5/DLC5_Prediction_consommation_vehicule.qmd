@@ -1,0 +1,204 @@
+---
+title: "DLC5_Prediction_consommation_vehicule"
+author: "LeCoinStat"
+format: html
+editor: visual
+---
+
+# Prédiction de la consommation des véhicules
+
+# Collecte des données
+
+# Analyse des données
+
+```{r}
+#| echo: false
+# écrire du code
+data("mtcars")
+
+```
+
+```{r}
+#| echo: false
+summary(mtcars)
+
+```
+
+## Distribution de la consommation des véhicules
+
+La consommation moyenne des véhicules est autour de 20.
+
+```{r}
+#| echo: false
+library(ggplot2)
+ggplot(data = mtcars, aes(x="Consommation des véhicules", y = mpg))+
+  geom_boxplot(color="blue", fill="blue")
+```
+
+# Choix des variables pertinentes
+
+```{r}
+mtcars$vs <- as.factor(mtcars$vs)
+mtcars$am <- as.factor(mtcars$am)
+plot(mtcars)
+```
+
+## Matrice de corrélation entre les variables quantitatives
+
+```{r}
+base_quanti <- mtcars[,-which(names(mtcars) %in% c("vs","am"))]
+
+```
+
+```{r}
+
+# Install and load reshape2 package
+#install.packages("reshape2")
+library(reshape2)
+ 
+# creating correlation matrix
+corr_mat <- round(cor(base_quanti),2)
+ 
+# reduce the size of correlation matrix
+melted_corr_mat <- melt(corr_mat)
+head(melted_corr_mat)
+ 
+# plotting the correlation heatmap
+library(ggplot2)
+ggplot(data = melted_corr_mat, aes(x=Var1, y=Var2, 
+                                   fill=value)) + 
+geom_tile() +
+geom_text(aes(Var2, Var1, label = value), 
+          color = "black", size = 2)
+```
+
+Les variable
+
+```{r}
+table(mtcars$vs)
+```
+
+s fortement négativement reliées à la consomation sont cyl, disp, hp et carb.
+
+## Analyse de la liaison entre mpg et am (qualitative deux modalités)
+
+### Test paramétrique d
+
+```{r}
+ggplot(data = mtcars, aes(x=am,y=mpg))+
+  geom_boxplot(aes(fill=mpg))
+```
+
+### e student
+
+```{r}
+# Réalisation d'un t-test pour comparer les moyennes de 'mpg' entre les voitures à transmission manuelle et automatique
+t.test(mpg ~ am, data=mtcars)
+
+```
+
+#### Vérification des hypothèses
+
+```{r}
+# Création d'un QQ-plot pour la variable 'mpg'
+qqnorm(mtcars$mpg)
+qqline(mtcars$mpg, col = "red")
+```
+
+```{r}
+# Test de Shapiro-Wilk pour 'mpg'
+shapiro.test(mtcars$mpg)
+```
+
+```{r}
+install.packages("cars")
+# Chargement du package
+library(car)
+
+# Réalisation du test de Levene sur 'mpg' en fonction du type de transmission 'am'
+leveneTest(mpg ~ am, data=mtcars)
+```
+
+```{r}
+
+t.test(mpg ~ am, data=mtcars, var.equal = FALSE)
+```
+
+```{r}
+wilcox.test(mpg ~ am, data=mtcars)
+
+```
+
+#  Construction du modèle de régression linéaire
+
+```{r}
+model <- lm(mpg ~ ., data = mtcars )
+```
+
+```{r}
+summary(model)
+```
+
+```{r}
+residualPlot(model)
+```
+
+```{r}
+vif(model)
+```
+
+```{r}
+ggplot(data = melted_corr_mat, aes(x=Var1, y=Var2, 
+                                   fill=value)) + 
+geom_tile() +
+geom_text(aes(Var2, Var1, label = value), 
+          color = "black", size = 2)
+```
+
+```{r}
+mtcars_bis <- mtcars[,-which(names(mtcars) %in% c("cyl","disp"," hp","carb","qsec"))]
+
+
+
+model_bis <- lm(mpg ~ ., data = mtcars_bis )
+```
+
+```{r}
+summary(model_bis)
+```
+
+```{r}
+vif(model_bis)
+```
+
+Prédiction
+
+```{r}
+predict(model_bis, data.frame(hp = 10, drat = 5, wt = 10, vs = as.factor(0), am = as.factor(0), gear = 7))
+
+```
+
+```{r}
+?predict
+```
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
