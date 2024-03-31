@@ -70,6 +70,11 @@ model_logistique2 <- glm(Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare, f
 ```
 
 ```{r}
+# Stocker le modèle
+saveRDS(model_logistique, "/Users/natachanjongwayepnga/Documents/GitHub/LeCoinStat/R_Pour_La_Datascience/Jour7/model_logistique_final.rds")
+```
+
+```{r}
 summary(model_logistique)
 ```
 
@@ -143,6 +148,11 @@ library(randomForest)
 model_rf <- randomForest(Survived ~ ., data=base_train, importance=TRUE,
                         ntree=500)
 model_rf
+```
+
+```{r}
+# Stocker le modèle
+saveRDS(model_rf, "/Users/natachanjongwayepnga/Documents/GitHub/LeCoinStat/R_Pour_La_Datascience/Jour7/model_randomforest.rds")
 ```
 
 ```{r}
