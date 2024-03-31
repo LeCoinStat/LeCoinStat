@@ -129,7 +129,7 @@ wilcox.test(mpg ~ am, data=mtcars)
 
 ```
 
-#  Construction du modèle de régression linéaire
+# Construction du modèle de régression linéaire
 
 ```{r}
 model <- lm(mpg ~ ., data = mtcars )
