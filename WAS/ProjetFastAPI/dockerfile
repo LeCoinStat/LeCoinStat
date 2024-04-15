@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+# Définit un repertoire de tavail dans le conteneur
+WORKDIR /app
+
+# Copie le fichier requirements.txt dans le conteneur
+COPY requirements.txt /app
+
+# Installe les dépendances
+RUN pip install -r requirements.txt
+
+# Copie le contenu du répertoire courant dans le conteneur
+COPY . /app
+
+# Commande pour exécuter l'application fastapi
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
+
