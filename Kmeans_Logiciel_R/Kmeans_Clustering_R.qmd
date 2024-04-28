@@ -42,7 +42,31 @@ L'objectif de cette analyse est **de découvrir des modèles et des tendances da
 
 Ces informations peuvent être utilisées pour **optimiser la stratégie de contenu des vendeurs**, améliorer l'engagement des utilisateurs et, finalement, augmenter les ventes.
 
-# Etape 1: Importation des données et description des données
+5 étapes clés pour réaliser les K-means
+
+-   Étape 1 : Analyse et traitement des données
+
+-   Étape 2 : Analyse de la relation qui existe entre les variables
+
+-   Étape 3 : Analyse de la relation multivariée entre les variables
+
+-   Étape 4 : Choix du nombre de groupes optimal
+
+-   Étape 5 : Interprétation des résultats
+
+# Etape 1: Analyse et traitement des données
+
+4 points clés à vérifier lors de la description des données :
+
+-   Point 1 : Transformation des variables
+
+-   Point 2 : Analyse des valeurs manquantes
+
+-   Point 3 : Traitement des données aberrantes
+
+-   Point 4 : Description des données
+
+## Point 1: Transformation des variables
 
 ```{r}
 chemin<-"/Users/natachanjongwayepnga/Documents/GitHub/LeCoinStat/Kmeans_Logiciel_R/data"# Remplacez par le chemin dans lequel se trouve votre base de données
@@ -54,9 +78,15 @@ head(base_publication)
 ```
 
 ```{r}
+View(base_publication)
+```
+
+```{r}
 #Types des variables dans la base de données
 str(base_publication)
 ```
+
+### Suppression des colonnes inutiles
 
 ```{r}
 #install.packages("dplyr")
@@ -69,12 +99,14 @@ base_publication<-base_publication %>% select(-c("Column1", "Column2", "Column3"
 str(base_publication)
 ```
 
+### Résumé rapide des données
+
 ```{r}
 #Résumé rapide de la base de données
 summary(base_publication)
 ```
 
-## Analyse des données manquantes
+## Point 2: Analyse des données manquantes
 
 ```{r}
 # Fonction pour calculer la proportion de valeurs manquantes par variable
@@ -96,6 +128,8 @@ resultat <- proportion_valeurs_manquantes(base_publication)
 resultat
 ```
 
+### Découverte d'un package VIM
+
 ```{r}
 # Charger le package VIM
 if (!require(VIM)) install.packages("VIM")
@@ -115,7 +149,21 @@ aggr(base_publication, col=c('navyblue','yellow'), numbers=TRUE, sortVars=TRUE,
      labels=names(base_publication), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 ```
 
-## Analyse du type de statut
+## Points 3 et 4 : Analyse des outliers et description des données
+
+Deux points:
+
+-Analyses des variables qualitatives
+
+-Analyse des variables quantitatives
+
+### Variable qualitative: type de statut
+
+Deux analyses:
+
+-Tableau des fréquences
+
+-Barplot
 
 ```{r}
 # Chargement du package ggplot2 pour la visualisation
@@ -146,7 +194,13 @@ ggplot(type_statut_df, aes(x = status_type, y = Count, fill = status_type)) +
 type_statut_table
 ```
 
-## Analyse des variables quantitatives
+### Analyse des variables quantitatives
+
+Deux graphiques à réaliser:
+
+-Histogrammes
+
+-Boxplot
 
 ```{r}
 # Installer les packages nécessaires si ce n'est pas déjà fait
@@ -197,9 +251,17 @@ library(psych)
 describe(base_publication[,liste_variable_quanti])
 ```
 
-# Etape 2: Analyse des relations entre les variables
+# Étape 2 : Analyse des relations entre les variables
 
-## Réaliser le pariplot entre les variables
+-   Mettre en place le pair plot (nuage de points).
+
+-   Mettre en place la heatmap de corrélation.
+
+-   Analyser les relations entre les variables qualitatives et quantitatives.
+
+-   Analyser les relations entre les variables qualitatives.
+
+## Réaliser le pair plot entre les variables
 
 ```{r}
 # Chargement des packages nécessaires
@@ -241,6 +303,10 @@ ggplot(data = melted_cormat, aes(Var2, Var1, fill = value)) +
 ```
 
 ## Relation variable qualitative et une variable quantitative
+
+-   Mettre en place les boxplots bivariés.
+
+-   Réaliser les tests statistiques adaptés (Wilcoxon, Kruskal-Wallis, ANOVA, Student, Welch).
 
 ```{r}
 if (!require(ggplot2)) install.packages("ggplot2")
@@ -290,7 +356,16 @@ resultats_dataframe
 
 # Etape 3: Réaliser l'ACP
 
+2 points clés:
+
+-Choix du nombre d'axe factoriel
+
+-Interprétation des axes
+
+## 1 - Choisir le nombre d'axe factoriel
+
 ```{r}
+
 if (!require(FactoMineR)) install.packages("FactoMineR")
 if (!require(factoextra)) install.packages("factoextra")
 
@@ -303,18 +378,13 @@ base_quanti <- base_publication[,-c(1,2)]  # Exclure les colonnes non quantitati
 # Variable qualitative comme supplémentaire
 status_type <- base_publication$status_type
 
-```
-
-## Choisir le nombre d'axe factoriel
-
-```{r}
 # Normalisation (centrage et réduction) des variables quantitatives
 base_quanti_norm <- scale(base_quanti)
 acp <- PCA(base_quanti_norm, graph = FALSE)
 fviz_eig(acp)
 ```
 
-## Interpréter les axes
+## 2- Interpréter les axes
 
 ```{r}
 # Cercle de corrélation
@@ -324,7 +394,15 @@ fviz_pca_var(acp, col.var = "cos2", repel = TRUE) # Colorer par contribution
 
 # Mise en place des kmeans
 
-## Etape 4: Détermination du nombre de cluster
+# Etape 4: Détermination du nombre de cluster
+
+2 méthodes pour déterminer le nombre de groupe
+
+-   Méthode du coude
+
+<!-- -->
+
+-   score de silhouette
 
 ```{r}
 if (!require(factoextra)) install.packages("factoextra")
@@ -334,7 +412,7 @@ library(factoextra)
 library(cluster)
 ```
 
-### Méthode du coude
+### Méthode 1: Méthode du coude
 
 L'idée de base derrière les méthodes de partitionnement de clusters, telles que le clustering k-means, est de définir des clusters afin de **minimiser** la **variation intra-cluster totale.** Cette variation est connue sous le nom de variation totale intra-cluster ou somme totale des carrés intra-cluster (WSS). La formule pour minimiser la WSS est la suivante :
 
@@ -367,9 +445,9 @@ fviz_nbclust(base_quanti_norm, kmeans, method = "wss") +
 
 ```
 
-### Méthode de silhouette
+### Méthode 2: Méthode de silhouette
 
-L'approche de la silhouette détermine à quel point chaque objet est bien intégré dans son cluster. Une largeur moyenne de silhouette élevée indique un bon clustering. La méthode de la silhouette moyenne calcule la silhouette moyenne des observations pour différentes valeurs de k. Le nombre optimal de clusters k est celui qui maximise la silhouette moyenne sur une plage de valeurs possibles pour k.
+L'approche de la silhouette détermine **à quel point chaque objet est bien intégré dans son cluster**. Une largeur moyenne de silhouette élevée indique un bon clustering. La méthode de la silhouette moyenne calcule la silhouette moyenne des observations pour différentes valeurs de k. Le nombre optimal de clusters k est celui qui maximise la silhouette moyenne sur une plage de valeurs possibles pour k.
 
 <https://uc-r.github.io/kmeans_clustering>
 
@@ -472,22 +550,17 @@ ggplot(base_publication, aes(x = factor(cluster), fill = status_type)) +
 ```
 
 ```{r}
-library(dplyr)
-# If you haven't installed tidyverse yet, you can uncomment the line below
-# install.packages("tidyverse")
-library(tidyverse)
 
-# Calculating the proportions within each cluster
 base_groupe <- base_publication %>%
   group_by(cluster, status_type) %>%
-  summarise(count = n()) %>%
+  summarise(count = n(), .groups = 'drop') %>%
   group_by(cluster) %>%
   mutate(freq = count / sum(count)) %>%
   ungroup()
+base_groupe
 
-```
 
-```{r}
+
 ggplot(base_groupe, aes(x = factor(cluster), y = freq, fill = status_type)) +
   geom_bar(stat = "identity", position = "fill") +
   geom_text(aes(label = scales::percent(freq, accuracy = 1)), 
@@ -533,9 +606,10 @@ library(tidyverse)
 # Calculer les proportions
 base_groupe <- base_publication %>%
   group_by(cluster3, status_type) %>%
-  summarise(count = n()) %>%
-  ungroup() %>%
-  mutate(freq = count / sum(count))
+  summarise(count = n(), .groups = 'drop') %>%
+  group_by(cluster3) %>%
+  mutate(freq = count / sum(count)) %>%
+  ungroup()
 base_groupe
 ```
 
