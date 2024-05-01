@@ -134,5 +134,5 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
-# Cython debug symbols
+# Cython debug symbols should not be included in source distributions.
 cython_debug/
