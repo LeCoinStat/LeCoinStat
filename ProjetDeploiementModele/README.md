@@ -1,5 +1,5 @@
 Les étapes pour déployer un modèle de machine learning sur le Cloud
-
+la vidéo complète est disponible ici: ![](https://www.youtube.com/watch?v=xaI03GSya0g)
 
 ### 1. Construire le modèle de machine Learning
 - Le code pour construire, entraîner et sauvegarder le modèle se trouve dans le dossier `modele`.
