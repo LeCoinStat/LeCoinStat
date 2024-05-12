@@ -1,0 +1,22 @@
+# Fichier .dockerignore pour un projet utilisant Docker
+
+# Ignorer les fichiers compilés Python qui ne sont pas nécessaires à la construction de l'image Docker
+*.pyc            # Ignorer les fichiers .pyc, qui sont des fichiers bytecode Python compilés automatiquement
+*.pyo            # Ignorer les fichiers .pyo, fichiers bytecode Python optimisés
+*.pyd            # Ignorer les fichiers .pyd, qui sont des bibliothèques dynamiques Python spécifiques à Windows
+
+# Ignorer les répertoires spécifiques qui ne sont pas nécessaires pour l'exécution de l'application dans le conteneur
+__pycache__      # Ignorer le répertoire __pycache__ où Python stocke le bytecode pour accélérer le démarrage
+.pytest_cache    # Ignorer le répertoire .pytest_cache utilisé par pytest pour stocker les informations de cache des tests
+.idea            # Ignorer le répertoire .idea qui contient des configurations spécifiques à l'IDE JetBrains PyCharm
+test             # Ignorer le répertoire 'test' qui peut contenir des scripts de test ou des données de test
+
+# Ignorer les environnements virtuels, car ils ne sont pas nécessaires dans le conteneur et peuvent être volumineux
+venv/**         # Ignorer tout le contenu du dossier .venv, incluant tous les fichiers et sous-dossiers
+
+# Ignorer les dossiers contenant des ressources non essentielles pour l'exécution de l'application
+modele/**        # Ignorer le dossier 'modele' qui pourrait contenir des modèles d'apprentissage automatique formés ou des données
+
+# Suivre certains fichiers importants qui doivent être inclus dans l'image Docker
+Dockerfile       # Inclure le Dockerfile pour les instructions de construction de l'image Docker
+README.md        # Inclure le README.md qui peut contenir des instructions importantes ou des informations sur l'image
