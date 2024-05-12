@@ -1,3 +1,6 @@
+Les étapes pour déployer un modèle de machine learning sur le Cloud
+
+
 ### 1. Construire le modèle de machine Learning
 - Le code pour construire, entraîner et sauvegarder le modèle se trouve dans le dossier `modele`.
 
@@ -75,7 +78,6 @@ gcloud run deploy --image europe-west9-docker.pkg.dev/testapi-420317/projetml/in
 - Tester le code avec `test/test.py`
 
 ### 8 Regarder le tutoriel vidéo
-- Comment déployer des modèles ML avec Google Cloud Run
 
 - [Déploiement des Modèles de Machine Learning avec Flask, Docker et GCP](
   https://www.youtube.com/watch?v=xaI03GSya0g)
