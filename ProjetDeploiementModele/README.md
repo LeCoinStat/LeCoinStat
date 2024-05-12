@@ -79,6 +79,5 @@ gcloud run deploy --image europe-west9-docker.pkg.dev/testapi-420317/projetml/in
 
 ### 8 Regarder le tutoriel vidéo
 
-- [Déploiement des Modèles de Machine Learning avec Flask, Docker et GCP](
-  https://www.youtube.com/watch?v=xaI03GSya0g)
+[Déploiement des Modèles de Machine Learning avec Flask, Docker et GCP](https://www.youtube.com/watch?v=xaI03GSya0g)
 
